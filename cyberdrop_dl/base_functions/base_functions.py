@@ -85,12 +85,11 @@ async def purge_dir(dirname, in_place=True):
 
 
 async def regex_links(urls) -> list:
-    all_links = [x.group().replace(".md.", ".") for x in re.finditer(
-        r"(?:http.*?)(?=($|\n|\r\n|\r|\s|\"|\[/URL]|]\[|\[/img]))", urls)]
-    yarl_links = []
-    for link in all_links:
-        yarl_links.append(URL(link))
-    return yarl_links
+    return [
+        URL(x) for x in [
+            x if not( x.lstrip().startswith('#') ) and re.match( r"(?:http.*?)(?=($|\n|\r\n|\r|\s|\"|\[/URL]|]\[|\[/img]))", x ) else None for x in urls
+        ] if x
+    ]
 
 
 async def cyberdrop_parse(url: URL) -> URL:

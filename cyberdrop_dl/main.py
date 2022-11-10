@@ -151,7 +151,7 @@ async def director(args: argparse.Namespace):
     links = list(map(URL, links))
 
     with open(input_file, "r", encoding="utf8") as f:
-        links += await regex_links(f.read())
+        links += await regex_links(f.read().splitlines())
     links = list(filter(None, links))
 
     if not links:

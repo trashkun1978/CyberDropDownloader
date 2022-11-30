@@ -81,7 +81,8 @@ class SimpCityCrawler:
             post_number = str(url).split("post-")
             post_number = int(post_number[-1].strip("/")) if len(post_number) == 2 else None
 
-            posts = soup.select("div[class='message-main uix_messageContent js-quickEditTarget']")
+            # posts = soup.select("div[class='message-main uix_messageContent js-quickEditTarget']")
+            posts = soup.find_all( attrs={ "data-content" : f"post-{post_number}"} )
             for post in posts:
                 post_num_str = post.select_one("li[class=u-concealed] a").get('href').split('/')[-1]
                 post_num_int = int(post_num_str.split('post-')[-1])

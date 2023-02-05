@@ -13,3 +13,4 @@ __pycache__/
 build/
 release/
 start_dev.py
+.test/*
